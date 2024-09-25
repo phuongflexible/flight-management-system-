@@ -16,4 +16,8 @@ A website which supports to manage flights.
 - This function helps customers to book tickets online. Custormers are only allowed to book tickets for flights which is going to taking off after twelve hours since the booking time.
 2. Sell tickets:
 - This function helps ticket staff sell tickets to customers at the counter, the staff can look up information which is classified by flights, departure time.
+3. Make a flight schedule:
+- This function allows admin to make a schedule for a flight. Admin has to arrange schedule based on these rules: There are ten airports, the minimum time of flight duration is 30 minutes, there are two transit airports in maximum and transit time is from 20 to 30 minutes.
+4. Statistic
+- 
 
