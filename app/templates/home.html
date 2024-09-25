@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% set active_page = "home" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<section class="section-home">
+	{% if current_user.is_authenticated %}
+		<h1>BẠN ĐÃ ĐĂNG NHẬP THÀNH CÔNG, CHÀO MỪNG BẠN ĐẾN VỚI WEBSITE!</h1>
+	{% else %}
+		<h1>CHÀO MỪNG BẠN ĐẾN VỚI WEBSITE</h1>
+		<h1>HÃY ĐĂNG NHẬP ĐỂ SỬ DỤNG CÁC CHỨC NĂNG</h1>
+	{% endif %}
+
+</section>
+{% endblock %}

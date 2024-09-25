@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% set active_page = "ticket_sales" %}
+{% block title %}Sales tickets Page{% endblock %}
+{% block content %}
+<section class="section-find-flight">
+    <div class="title">
+        <h1>Tìm chuyến bay</h1>
+    </div>
+    <div class="info">
+        <form method="POST" action="{{ url_for('book_tickets') }}">
+            {{ formSearchFlight.hidden_tag() }}
+
+            <div class="form-field">
+                <div class="form-group">
+                    {{ formSearchFlight.start.label }} {{
+                    formSearchFlight.start() }}
+                </div>
+                <div class="form-group">
+                    {{ formSearchFlight.destination.label }} {{
+                    formSearchFlight.destination() }}
+                </div>
+                <div class="form-group">
+                    {{ formSearchFlight.departure_date.label }} {{
+                    formSearchFlight.departure_date() }}
+                </div>
+            </div>
+            <button id="bt-find-flight" type="submit">Search</button>
+        </form>
+    </div>
+</section>
+
+<section class="section-list-flight" style="border: 1px solid blue">
+    <div class="title">
+        <h1>Danh sách các chuyến bay</h1>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Mã chuyến bay</th>
+            <th>Mã tuyến bay</th>
+            <th>Nơi cất cánh</th>
+            <th>Nơi hạ cánh</th>
+            <th>Thời gian cất cánh</th>
+            <th>Thời gian hạ cánh</th>
+            <th>Số ghế</th>
+            <th>Giá vé</th>
+            <th>Đặt vé</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for flight in flights %}
+        <tr>
+            <td>{{ flight.name }}</td>
+            <td>{{ flight.route_id }}</td>
+            <td>{{ flight.route.departure.name }}</td>
+            <td>{{ flight.route.destination.name }}</td>
+            <td>{{ flight.departure_time}}</td>
+            <td>{{ flight.destination_time}}</td>
+            <td>
+                <select name="num_seats" id="num_seats_{{ flight.id }}"
+                        onchange="updatePrice('{{ flight.id }}')">
+                    <option value="{{ flight.unitPriceOfClassFirstSeat }}">
+                        First class seats - {{ flight.availableClassFirstSeat }}
+                    </option>
+                    <option value="{{ flight.unitPriceOfClassSecondSeat }}">
+                        Second class seats - {{ flight.availableClassSecondSeat }}
+                    </option>
+                </select>
+            </td>
+            <td>
+                <span id="price_{{ flight.id }}">{{ flight.unitPriceOfClassFirstSeat }}</span>
+            </td>
+            <td>
+                <form id="form_buy_ticket" action="{{ url_for('buy_tickets')}}" method="post">
+                    <input type="hidden" name="employee_id" value="">
+                    <input type="hidden" name="flight_id" value="{{ flight.id }}">
+                    <input type="hidden" name="flight_code" value="{{ flight.name }}">
+                    <input type="hidden" name="route_id" value="{{ flight.route_id }}">
+                    <input type="hidden" name="start_name" value="{{ flight.route.departure.name }}">
+                    <input type="hidden" name="destination_name" value="{{ flight.route.destination.name }}">
+                    <input type="hidden" name="departure_time" value="{{ flight.departure_time }}">
+                    <input type="hidden" name="arrival_time" value="{{ flight.destination_time }}">
+                    <input type="hidden" name="seat_class" id="seat_class_{{ flight.id }}" value="First class seats">
+                    <input type="hidden" name="seat_price" id="seat_price_{{ flight.id }}"
+                           value="{{ flight.unitPriceOfClassFirstSeat }}">
+                    <!-- -->
+                    <input type="submit" value="BUY">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <p id="note"></p>
+
+</section>
+
+<script>
+    function updatePrice(id) {
+        function updatePrice(id) {
+        var seat_class = $("#seat_class_" + id);
+        var seat_price = $("#seat_price_" + id);
+
+        var num_seats = $("#num_seats_" + id);
+        var price = $("#price_" + id);
+
+        price.html(num_seats.val());
+        seat_class.val($.trim(num_seats.find('option:selected').text().split('-')[0]));
+        seat_price.val(num_seats.val());
+        }
+    }
+
+</script>
+{% endblock %}

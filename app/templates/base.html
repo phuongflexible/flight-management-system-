@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hệ thống quản lý chuyến bay</title>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <script src="{{url_for('static', filename='js/jquery-3.6.0.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .section-message {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .flashes {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .flashes li {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>HỆ THỐNG QUẢN LÝ CHUYẾN BAY</h1>
+    </header>
+
+    <nav>
+        <a class="{{ 'active' if active_page == 'home' else '' }}" href="{{url_for('home')}}">Trang Chủ</a>
+        <a class="{{ 'active' if active_page == 'book_tickets' else '' }}" href="{{url_for('book_tickets')}}">Đặt Vé</a>
+        <a class="{{ 'active' if active_page == 'ticket_sales' else '' }}" href="{{url_for('ticket_sales')}}">Bán Vé</a>
+        <a class="{{ 'active' if active_page == 'admin' else '' }}" href="/admin">Quản Lý</a>
+        <a class="{{ 'active' if active_page == 'report' else '' }}" href="{{url_for('report')}}">Thống Kê Báo Cáo</a>
+        <a class="{{ 'hidden' if current_user.is_authenticated == true else 'active' if active_page == 'login' else '' }}"
+            href="{{url_for('login')}}">Đăng Nhập</a>
+        <a class="{{ '' if current_user.is_authenticated == true else 'hidden' }}"
+            href="{{url_for('logout')}}">Đăng Xuất</a>
+    </nav>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <section class="section-message">
+            <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Nhóm 16</p>
+    </footer>
+
+</body>
+
+
+</html>
