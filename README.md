@@ -26,5 +26,10 @@ Admin is allowed to:
 - Chage the number of airports, the minimum time of flight duration, the number of transit airports in maximum, transit time in minimum and maximum at transit airport.
 - Manage routes, flights, users.
 ## Setup
-
+### To run this project:
+- Make sure the equipments has downloaded python.
+- Use IDE like Pycharm or Visual Studio Code to run the project.
+- Create virtual environment
+- Install everything according to file requirements.txt .
+- 
 
