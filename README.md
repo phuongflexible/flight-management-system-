@@ -32,5 +32,5 @@ Admin is allowed to:
 - Create virtual environment.
 - Install everything according to file requirements.txt .
 - Create a database in MySQL and declare the database's name and password of MySQL in file __init__.py. Fill in:
-  "mysql+pymysql://root:%s@localhost/<u>database's name</u>?charset=utf8mb4" % quote ("<u>password@</u>")
+  "mysql+pymysql://root:%s@localhost/_database's name_?charset=utf8mb4" % quote ("_password_")
 
