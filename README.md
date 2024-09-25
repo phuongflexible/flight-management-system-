@@ -29,7 +29,8 @@ Admin is allowed to:
 ### To run this project:
 - Make sure the equipments has downloaded python.
 - Use IDE like Pycharm or Visual Studio Code to run the project.
-- Create virtual environment
+- Create virtual environment.
 - Install everything according to file requirements.txt .
-- 
+- Create a database in MySQL and declare the database's name and password of MySQL in file __init__.py. Fill in:
+  "mysql+pymysql://root:%s@localhost/<u>database's name</u>?charset=utf8mb4" % quote ("<u>password@</u>")
 
